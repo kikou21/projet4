@@ -1,0 +1,16 @@
+---
+ default_passwd: mypassword
+ vnc_client_res: "1024x600"
+ vnc_users:
+    - username: 'poste1'
+     # port 5901
+      vnc_num: 1
+    - username: 'poste2'
+     # port 5902 
+      vnc_num: 2
+    - username: 'poste1'
+     # port 5903
+      vnc_num: 3
+ 
+    
+ 
