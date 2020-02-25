@@ -1,0 +1,27 @@
+---
+
+- hosts: logicaldoc
+
+  tasks:
+
+      - name : load vars
+        includ_vars:
+          file: vars.yml
+      
+      - name : install tomcat
+        apt:
+          name: tomcat latest
+
+                    - name: Télécharger Java 8
+            unarchive:
+                    remote_src: yes
+                    src: "{{ archive_java }}"
+                    dest: /opt
+
+          - name: Installer Java 8
+            alternatives:
+                    name: java
+                    link: /usr/bin/java
+                    path: /opt/jdk8u242-b08-jre/bin/java
+                    priority: 500
+
