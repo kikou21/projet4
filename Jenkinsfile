@@ -42,15 +42,16 @@ pipeline {
                 )         
             }
         }
+        */
         stage ("manual tests "){
-            agent {
-                label "Deb10"
+        
             }
             steps {
-                //to do deploy with ansible ? or not ???? 
+                docker build -t debian . <  debDockerfile 
+                
             
             }
-        }   */
+        }   
             
     }
 } 
