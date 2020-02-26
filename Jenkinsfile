@@ -1,5 +1,5 @@
 pipeline {
-    
+      
     stages{
         stage ('pull the logicaldoc image'){
             steps {
