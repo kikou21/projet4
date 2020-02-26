@@ -9,11 +9,11 @@ pipeline {
                         sh "docker login -u ${GIT_USERNAME} - p ${GIT_TOKEN} https://github.com/kikou21/projet4/packages docker.pkg.github.com"
                         sh "docker pull docker.pkg.github.github.com/${GIT_USERNAME}/projet4/logicaldoc:latest"
                         sh "docker images"
-                        } }
+                        } 
                 }
          
             }
-        }
+        
       /*   stage ('run docker-compose and tests  '){
             steps {
                 parallel (
