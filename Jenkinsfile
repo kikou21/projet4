@@ -6,10 +6,11 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'gitPackageTokens', passwordVariable: 'GIT_TOKEN', usernameVariable: 'GIT_USERNAME')]){
-                        //sh "docker login -u ${GIT_USERNAME} - p ${GIT_TOKEN} httpskdocker.pkg.github.com"
+                       docker.withRegistry (https://github.com/kikou21/projet4/packages/){
+                           //sh "docker login -u ${GIT_USERNAME} - p ${GIT_TOKEN} httpskdocker.pkg.github.com"
                         sh "docker pull docker.pkg.github.github.com/${GIT_USERNAME}/projet4/logicaldoc:latest"
                         sh "docker images"
-                        }
+                        } }
                 }
          
             }
