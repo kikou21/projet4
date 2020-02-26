@@ -14,7 +14,7 @@ pipeline {
          
             }
         }
-        stage ('run docker-compose and tests  '){
+      /*   stage ('run docker-compose and tests  '){
             steps {
                 parallel (
                    logicaldocMdb : {
@@ -48,7 +48,7 @@ pipeline {
                 //to do deploy with ansible ? or not ???? 
             
             }
-        }  
+        }   */
             
     }
 } 
