@@ -5,62 +5,65 @@
   vars:
           conteneurs:
                   logicaldoc: 10.0.0.2
-                  mariadb1: 10.0.0.3
-                  postgresql_db: 10.0.0.4
-                  proxy: 10.0.0.5
-
+                  mariadb: 10.0.0.3
+                  tools: 10.0.0.5
   tasks:
 
-          - name: Installation des dépendances
+          - name: Install dependencies
             pip:
                     name: docker
                     state: present
 
-          - name: Création du réseau
+          - name: Create network
             docker_network:
                     name: subnet0
                     ipam_config:
                             - gateway: 10.0.0.254
                               iprange: 10.0.0.0/24
                               subnet: 10.0.0.0/24
-
           
-          - name: Déploiement
+          - name: Deploy logicaldoc
             docker_container:
-                    name: "{{ item.key }}"
-                    hostname: "{{ item.key }}"
-                    image: debian_ansible:latest
+                    name: logicaldoc
+                    hostname: logicaldoc
+                    image: logicaldoc:latest
                     state: started
                     tty: yes
                     pull: no
                     purge_networks: yes
                     networks:
                             - name: subnet0
-                              ipv4_address: "{{ item.value }}"
-            loop: "{{ conteneurs | dict2items }}"
+                              ipv4_address: 10.0.0.2
+
+          - name: Deploy Mariadb
+            docker_container:
+                    name: mariadb
+                    hostname: 
+                    image: mariadb:latest
+                    state: started
+                    tty: yes
+                    pull: no
+                    purge_networks: yes
+                    networks:
+                            - name: subnet0
+                              ipv4_address: 10.0.0.2
+                        
+
+          - name: Deploy tools
+            docker_container:
+                    name: tools
+                    hostname: tools
+                    image: tools:latest
+                    state: started
+                    tty: yes
+                    pull: no
+                    purge_networks: yes
+                    networks:
+                            - name: subnet0
+                              ipv4_address: 10.0.0.3
+      
 
           - name: Démarrage SSH
             shell: for ct in $(docker ps -q) ; do docker exec -t $ct service ssh start ; done
-
-          - name: Ajout du nouveau groupe d'hôtes
-            lineinfile:
-                    path: /etc/ansible/hosts
-                    line: '[docker_containers]'
-                    state: present
-
-          - name: Ajout des nouveaux hôtes (1/2)
-            lineinfile:
-                    path: /etc/hosts
-                    line: "{{ item.value }} {{ item.key }}"
-                    state: present
-            loop: "{{ conteneurs | dict2items }}"
-
-          - name: Ajout des nouveaux hôtes (2/2)
-            lineinfile:
-                    path: /etc/ansible/hosts
-                    line: "{{ item.key }}"
-                    state: present
-                    insertafter: '\[docker_containers\]'
-            loop: "{{ conteneurs | dict2items }}"
 
           

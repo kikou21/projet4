@@ -25,7 +25,7 @@ pipeline {
                             sh "docker-compose up"
                             sh "docker ps"
                             //sh "" to do executer le script sql de peuplement de la bdd après avoir ouvert le container
-                            //to do ajouter soapui free et  lancer fichier xml
+                            sh ""
                             sh "docker-compose down"
                         }
                     },

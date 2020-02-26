@@ -1,2 +1,0 @@
-FROM debian:9
-RUN wget https://www.dropbox.com/s/cf999m4djxm6m7z/logicaldoc.war?dl=0
