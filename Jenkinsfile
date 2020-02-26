@@ -1,5 +1,6 @@
 pipeline {
-      
+    agent any
+    
     stages{
         stage ('pull the logicaldoc image'){
             steps {
