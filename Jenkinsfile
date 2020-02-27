@@ -58,7 +58,7 @@ pipeline {
           stage('Deploiement container with tools') {
                 steps{
                     ansiblePlaybook (
-                         playbook: 'ansible-playbooks/tools.yml',
+                         playbook: 'tools.yml',
                          inventory: "hosts",
                          colorized: true, 
                         become: true
