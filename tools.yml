@@ -3,17 +3,13 @@
 
   tasks:
 
+ 
     - name: Only run equivalent apt-get update, if the last one is more than 3600 seconds ago
       apt:
         update_cache: yes
         cache_valid_time: 3600
 
-  
-     # - name: Install tightvncserver
-     #   apt:
-      #    name: tightvncserver
-      #    state: present
-    
+   
     - name: Install firefox 
       apt:
           name: firefox-esr   
@@ -45,12 +41,21 @@
       shell:
         cmd: snap install zaproxy --classic
     
+    - name: run the site in a docker container
+      docker_container:
+        name: site1
+        image: testkb
+        state: started
+        pull: no
+        exposed_ports:
+          - 8089
+        volumes:
+          - /data
+    
+    - name: start ssh
+      shell: for ct in $(docker ps -q) ; do docker exec -t $ct service ssh start ; done
         
-    - name: Unarchive and download squirrelsql
-      unarchive:
-        src: https://sourceforge.net/projects/squirrel-sql/files/1-stable/4.0.0-plainzip/squirrelsql-4.0.0-standard.zip/download
-        dest: /opt/
-        remote_src: yes
+        
 
 
 

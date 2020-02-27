@@ -1,2 +1,5 @@
-[docker_containers]
+[server]
+192.168.102.26
+
+[local]
 localhost

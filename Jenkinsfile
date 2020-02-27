@@ -44,12 +44,25 @@ pipeline {
             steps {
                 script {
 
-                    sh "echo : toto "
-                   // sh "docker build -t mytools -f deb.Dockerfile ." 
+                    sh "docker-compose -f docker-compose.yml up -d"
+                    sh "docker-compose -f docker-compose_1.yml up -d"
+                    sh "docker-compose -f docker-compose_2.yml up -d"
+                    sh "docker-compose -f docker-compose_2.yml up -d" 
+                    
                 }
              
             }
         }
+          stage('Deploiement container with tools') {
+            ansiblePlaybook (
+                playbook: 'ansible-playbooks/tools.yml'
+                inventory: "hosts"
+                colorized: true, 
+                become: true
+            )
+          }
+             
+   )
             
           
             

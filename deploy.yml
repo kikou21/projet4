@@ -2,68 +2,24 @@
 
 - hosts: localhost
 
-  vars:
-          conteneurs:
-                  logicaldoc: 10.0.0.2
-                  mariadb: 10.0.0.3
-                  tools: 10.0.0.5
   tasks:
 
-          - name: Install dependencies
-            pip:
+        - name: Install dependencies
+          pip:
                     name: docker
-                    state: present
+                    state: presentce .
 
-          - name: Create network
-            docker_network:
-                    name: subnet0
-                    ipam_config:
-                            - gateway: 10.0.0.254
-                              iprange: 10.0.0.0/24
-                              subnet: 10.0.0.0/24
+        - name: Install docker-compose
+          pip:
+                    name: docker-compose
+                    state: present        
           
-          - name: Deploy logicaldoc
-            docker_container:
-                    name: logicaldoc
-                    hostname: logicaldoc
-                    image: logicaldoc:latest
-                    state: started
-                    tty: yes
-                    pull: no
-                    purge_networks: yes
-                    networks:
-                            - name: subnet0
-                              ipv4_address: 10.0.0.2
 
-          - name: Deploy Mariadb
-            docker_container:
-                    name: mariadb
-                    hostname: 
-                    image: mariadb:latest
-                    state: started
-                    tty: yes
-                    pull: no
-                    purge_networks: yes
-                    networks:
-                            - name: subnet0
-                              ipv4_address: 10.0.0.2
-                        
-
-          - name: Deploy tools
-            docker_container:
-                    name: tools
-                    hostname: tools
-                    image: tools:latest
-                    state: started
-                    tty: yes
-                    pull: no
-                    purge_networks: yes
-                    networks:
-                            - name: subnet0
-                              ipv4_address: 10.0.0.3
-      
-
-          - name: Démarrage SSH
-            shell: for ct in $(docker ps -q) ; do docker exec -t $ct service ssh start ; done
-
-          
+        - name: Run using a project directory
+          hosts: localhost
+          gather_facts: no
+          tasks:
+                - name: Tear down existing services
+                  docker_compose:
+                        project_src: flask
+                        state: absent
