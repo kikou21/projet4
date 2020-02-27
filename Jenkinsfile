@@ -22,8 +22,8 @@ pipeline {
                 parallel (
                    logicaldocMdb : {
                         script{
-                            sh "docker-compose -f docker-compose.yml up"
-                            sh ""
+                            sh "docker-compose -f docker-compose.yml up -d"
+                            sh "sleep 60"
                             sh "cd /home/formation/SmartBear/SoapUI-5.5.0/bin && sh testrunner.sh -s"TestSuite 1" -c"TestCase 1" /var/lib/jenkins/workspace/last/REST-Project-Test-Auto-soapui-project.xml"
                             sh "docker-compose down"
                         }
