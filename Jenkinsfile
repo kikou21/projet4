@@ -22,11 +22,9 @@ pipeline {
                 parallel (
                    logicaldocMdb : {
                         script{
-                            sh "docker-compose up"
-                            sh "docker ps"
-                            //sh "" to do executer le script sql de peuplement de la bdd après avoir ouvert le container
-                            //sh ""
-                            //sh "docker-compose down"
+                            sh "docker-compose -f docker-compose.yml up"
+                            sh "cd /home/formation/SmartBear/SoapUI-5.5.0/bin && sh testrunner.sh -s"TestSuite 1" -c"TestCase 1" /var/lib/jenkins/workspace/last/REST-Project-Test-Auto-soapui-project.xml"
+                            sh "docker-compose down"
                         }
                     },
                     logicaldocPG : {
@@ -45,7 +43,7 @@ pipeline {
             }
         }
         
-        stage ("manual tests "){
+        stage ("autom tests "){
             steps {
                 script {
 
