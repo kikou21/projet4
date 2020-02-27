@@ -2,6 +2,7 @@ pipeline {
     agent any
     
     stages{
+
      /*    stage ('pull the logicaldoc image'){
             steps {
                 script {
@@ -10,11 +11,11 @@ pipeline {
                         sh "docker pull docker.pkg.github.github.com/${GIT_USERNAME}/projet4/logicaldoc:latest"
                         sh "docker images"
                         }  */
-                    sh "docker build -t logicaldoc ." 
-                }
+                    //sh "docker build -t logicaldoc ." 
+               //}
          
-            }
-        } 
+           // }
+      //  } 
         
        stage ('run docker-compose and tests  '){
             steps {
@@ -45,14 +46,16 @@ pipeline {
         }
         
         stage ("manual tests "){
-        
-            }
             steps {
-               sh "docker build -t mytools -f deb.Dockerfile ." 
-                
-            
+                script {
+
+                    sh "docker build -t mytools -f deb.Dockerfile ." 
+                }
+             
             }
-        }   
+        }
+            
+          
             
     }
 } 
