@@ -34,6 +34,7 @@ pipeline {
                         sh "sleep 60"
                         sh "cd /home/formation/SmartBear/SoapUI-5.5.0/bin && sh testrunner.sh -s'TestSuite 1' -c'TestCase 1' /var/lib/jenkins/workspace/last/REST-Project-Test-Auto-soapui-project-pg.xml"
                         sh "docker-compose -f docker-compose_2.yml down"
+                     
 
                     }
                 }
@@ -48,6 +49,7 @@ pipeline {
                     sh "docker-compose -f docker-compose_2.yml up -d"
                     sh "docker-compose -f docker-compose_3.yml up -d"
                     sh "docker-compose -f docker-compose_4.yml up -d" 
+                    sh "docker build -t testkb -f deb.Dockerfile ."
                     
                 }
              
