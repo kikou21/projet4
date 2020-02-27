@@ -31,12 +31,10 @@ pipeline {
                     logicaldocPG : {
                         script{
                             sh "echo 'test' "
-                            /* sh "cd postgres"
-                            sh "docker-compose up"
-                            sh "docker ps"
-                            //sh "" to do executer le script sql de peuplement de la bdd après avoir ouvert le container
-                            //to do ajouter soapui free et  lancer fichier xml
-                            sh "docker-compose down" */
+                            sh "docker-compose -f docker-compose_2.yml up -d"
+                            sh "sleep 60"
+                            sh "cd /home/formation/SmartBear/SoapUI-5.5.0/bin && sh testrunner.sh -s'TestSuite 1' -c'TestCase 1' /var/lib/jenkins/workspace/last/REST-Project-Test-Auto-soapui-project-pg.xml"
+                            sh "docker-compose down"
 
                          }
                     }
@@ -48,7 +46,7 @@ pipeline {
             steps {
                 script {
 
-                    sh "docker build -t mytools -f deb.Dockerfile ." 
+                   // sh "docker build -t mytools -f deb.Dockerfile ." 
                 }
              
             }
