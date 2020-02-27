@@ -14,7 +14,7 @@ pipeline {
                 }
          
             }
-        } */
+        } 
         
        stage ('run docker-compose and tests  '){
             steps {
