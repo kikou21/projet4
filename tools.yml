@@ -1,5 +1,5 @@
 ---
-- hosts: [dockerhosts]
+- hosts: localhost
 
   tasks:
 
@@ -8,49 +8,37 @@
         update_cache: yes
         cache_valid_time: 3600
 
-    - name: Install xfce4 goodies for vnc
-      apt:
-        name: xfce4 xfce4-goodies #find how to select a langage automaticaly and entree
-        state: present
+   # - name: Install xfce4 goodies for vnc
+    #    apt:
+    #      name: xfce4 xfce4-goodies #find how to select a langage automaticaly and entree
+       #   state: present
 
-    - name: Install tightvncserver
-      apt:
-        name: tightvncserver
-        state: present
+     # - name: Install tightvncserver
+     #   apt:
+      #    name: tightvncserver
+      #    state: present
     
-    - name: Download stable firefox for debian9
-      shell:
-        cmd: wget -O Firefox.tar.bz2 "https://download.mozilla.org/?product=firefox-latest&os=linux64&lang=fr"
-   
-    - name: Decompress firefox
-      shell:
-        cmd: tar xjf Firefox.tar.bz2
+    - name: Install firefox 
+      apt:
+          name: firefox-esr   
+          state: present
 
-    - name: copy Firefox to opt
-      copy: 
-        src: Firefox
-        dest: /opt/Firefox
-
-    - name: Download Soapui
-      get_url:
-           url: https://s3.amazonaws.com/downloads.eviware/soapuios/5.4.0/SoapUI-5.4.0-linux-bin.tar.gz 
-           
     - name: Download Google chrome
       get_url:
-          url: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          url: https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          dest: /opt/google-chrome.deb
     
     - name: Install Google chrome
       shell:
-          cmd: apt install ./google-chrome-stable_current_amd64.deb -y
+          cmd: apt install -y /opt/google-chrome.deb
 
-    - name: decompress soapui
-      shell: 
-          cmd: tar -xzf .tar.gz 
-    
-    - name: move file soapui en opt
-      copy: 
-        src: SoapUI-5.4.0-linux-bin
-        dest: /opt/SoapUI-5.4.0-linux-bin
+
+    - name: Download and unarchive soapui
+      unarchive :
+           src: https://s3.amazonaws.com/downloads.eviware/soapuios/5.4.0/SoapUI-5.4.0-linux-bin.tar.gz 
+           dest: /opt
+           remote_src: yes
+
     
     - name: Enable snaps on Debian 9 to install SQuirrel SQL
       apt:
@@ -61,9 +49,12 @@
       shell:
         cmd: snap install zaproxy --classic
     
-    - name: Install squirrelsql
-      get_url:
-        url: https://sourceforge.net/projects/squirrel-sql/files/1-stable/4.0.0-plainzip/squirrelsql-4.0.0-standard.zip/download
+        
+    - name: Unarchive and download squirrelsql
+      unarchive:
+        src: https://sourceforge.net/projects/squirrel-sql/files/1-stable/4.0.0-plainzip/squirrelsql-4.0.0-standard.zip/download
+        dest: /opt/
+        remote_src: yes
 
 
 
