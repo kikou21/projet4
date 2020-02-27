@@ -17,29 +17,28 @@ pipeline {
            // }
       //  } 
         
-       stage ('run docker-compose and tests  '){
+        stage ('run docker-compose and execute tests soapUi in mysqldb '){
             steps {
-                parallel (
-                   logicaldocMdb : {
-                        script{
-                            sh "docker-compose -f docker-compose.yml up -d"
-                            sh "sleep 60"
-                            sh "cd /home/formation/SmartBear/SoapUI-5.5.0/bin && sh testrunner.sh -s'TestSuite 1' -c'TestCase 1' /var/lib/jenkins/workspace/last/REST-Project-Test-Auto-soapui-project.xml"
-                            sh "docker-compose down"
-                        }
-                    },
-                    logicaldocPG : {
-                        script{
-                            sh "docker-compose -f docker-compose_2.yml up -d"
-                            sh "sleep 60"
-                            sh "cd /home/formation/SmartBear/SoapUI-5.5.0/bin && sh testrunner.sh -s'TestSuite 1' -c'TestCase 1' /var/lib/jenkins/workspace/last/REST-Project-Test-Auto-soapui-project-pg.xml"
-                            sh "docker-compose down"
-
-                         }
+                script{
+                        sh "docker-compose -f docker-compose.yml up -d"
+                        sh "sleep 60"
+                        sh "cd /home/formation/SmartBear/SoapUI-5.5.0/bin && sh testrunner.sh -s'TestSuite 1' -c'TestCase 1' /var/lib/jenkins/workspace/last/REST-Project-Test-Auto-soapui-project.xml"
+                        sh "docker-compose down"
                     }
-                )         
+                }
+       }
+        stage ('run docker-compose and execute tests soapUi in postgresql '){
+            steps {
+                script{
+                        sh "docker-compose -f docker-compose_2.yml up -d"
+                        sh "sleep 60"
+                        sh "cd /home/formation/SmartBear/SoapUI-5.5.0/bin && sh testrunner.sh -s'TestSuite 1' -c'TestCase 1' /var/lib/jenkins/workspace/last/REST-Project-Test-Auto-soapui-project-pg.xml"
+                        sh "docker-compose down"
+
+                    }
+                }
+                        
             }
-        }
         
         stage ("autom tests "){
             steps {
