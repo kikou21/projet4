@@ -1,5 +1,4 @@
-FROM consol/ubuntu-xfce-vnc
-
+FROM debian:9
 
 RUN apt-get update
 RUN apt-get -y install openjdk-8-jre
