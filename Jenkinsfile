@@ -45,9 +45,9 @@ pipeline {
                 script {
 
                     sh "docker-compose -f docker-compose.yml up -d"
-                    sh "docker-compose -f docker-compose_1.yml up -d"
                     sh "docker-compose -f docker-compose_2.yml up -d"
-                    sh "docker-compose -f docker-compose_2.yml up -d" 
+                    sh "docker-compose -f docker-compose_3.yml up -d"
+                    sh "docker-compose -f docker-compose_4.yml up -d" 
                     
                 }
              
