@@ -27,7 +27,7 @@ pipeline {
                     }
                 }
        }
-      /*   stage ('run docker-compose and execute tests soapUi in postgresql '){
+        stage ('run docker-compose and execute tests soapUi in postgresql '){
             steps {
                 script{
                         sh "docker-compose -f docker-compose_2.yml up -d"
@@ -38,7 +38,7 @@ pipeline {
                     }
                 }
                         
-            } */
+            }
         
         stage ("autom tests "){
             steps {
