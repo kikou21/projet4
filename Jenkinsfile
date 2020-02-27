@@ -30,7 +30,6 @@ pipeline {
                     },
                     logicaldocPG : {
                         script{
-                            sh "echo 'test' "
                             sh "docker-compose -f docker-compose_2.yml up -d"
                             sh "sleep 60"
                             sh "cd /home/formation/SmartBear/SoapUI-5.5.0/bin && sh testrunner.sh -s'TestSuite 1' -c'TestCase 1' /var/lib/jenkins/workspace/last/REST-Project-Test-Auto-soapui-project-pg.xml"
@@ -46,6 +45,7 @@ pipeline {
             steps {
                 script {
 
+                    sh "echo : toto "
                    // sh "docker build -t mytools -f deb.Dockerfile ." 
                 }
              
