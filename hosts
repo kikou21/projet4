@@ -1,5 +1,5 @@
-[server]
-192.168.102.26
+#[server]
+#192.168.102.26
 
 [local]
-localhost
+localhost ansible_user=formation
