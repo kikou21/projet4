@@ -59,8 +59,8 @@ pipeline {
                 steps{
                     ansiblePlaybook (
                          vaultCredentialsId: 'ansible_key'
-                         playbook: 'ansible-playbooks/tools.yml',
-                         inventory: "hosts",
+                         playbook: 'tools.yml',
+                         inventory: 'hosts',
                          colorized: true, 
                         become: true
                     )
