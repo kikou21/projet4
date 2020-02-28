@@ -1,25 +1,23 @@
 ---
 
-- hosts: localhost
+- hosts: local
 
   tasks:
-
-        - name: Install dependencies
+        - name: Install docker
           pip:
                     name: docker
-                    state: presentce .
+                    state: present
 
-        - name: Install docker-compose
-          pip:
-                    name: docker-compose
-                    state: present        
-          
-
-        - name: Run using a project directory
-          hosts: localhost
-          gather_facts: no
-          tasks:
-                - name: Tear down existing services
-                  docker_compose:
-                        project_src: flask
-                        state: absent
+        
+         - name: run tools in docker container
+            docker_container:
+                    name: site1
+                    hostname: site1
+                    image: testkb
+                    state: started
+                    pull: no
+                    exposed_ports:
+                      - 8089
+                    volumes:
+                      - /data
+              
