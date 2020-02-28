@@ -58,7 +58,7 @@ pipeline {
           stage('Deploiement container with tools') {
                 steps{
                     ansiblePlaybook (
-                         vaultCredentialsId: 'ansible_key'
+                         vaultCredentialsId: 'ansible_key',
                          playbook: 'tools.yml',
                          inventory: 'hosts',
                          colorized: true, 
