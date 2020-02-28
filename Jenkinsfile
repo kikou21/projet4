@@ -49,20 +49,21 @@ pipeline {
                     sh "docker-compose -f docker-compose_2.yml up -d"
                     sh "docker-compose -f docker-compose_3.yml up -d"
                     sh "docker-compose -f docker-compose_4.yml up -d" 
-                    sh "docker build -t testkb -f deb.Dockerfile ."
+                  
                     
                 }
              
             }
         }
-          stage('Deploiement container with tools') {
+           stage('Deploiement container with tools ansible-playbook') {
                 steps{
                     ansiblePlaybook (
                          credentialsId:'ansible_key',
-                         playbook: 'tools.yml',
+                         playbook: 'env.yml',
                          inventory: 'hosts',
                          colorized: true, 
-                        become: true
+                         become: true,
+                         become_user: 'formation'
                     )
                 }
           }
