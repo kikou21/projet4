@@ -59,7 +59,7 @@ pipeline {
                 steps{
                     ansiblePlaybook (
                          credentialsId:'ansible_key',
-                         playbook: 'env.yml',
+                         playbook: 'deploy.yml',
                          inventory: 'hosts',
                          colorized: true, 
                          become: true,
