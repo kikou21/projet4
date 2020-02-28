@@ -63,7 +63,7 @@ pipeline {
                          inventory: 'hosts',
                          colorized: true, 
                          become: true,
-                         become_user: 'formation'
+                         becomeUser: 'formation'
                     )
                 }
           }
